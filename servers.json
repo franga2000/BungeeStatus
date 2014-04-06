@@ -1,43 +1,42 @@
 {
-  "password": "CHANGE THIS!",
-  "columns": "2",
-  "servers": [
+  "servers":[
     {
-      "Name": "BungeeCord",
-      "Adress": "mc.franga2000.com",
-      "Port": 25565,
-      "Description": "The server you connect to"
+      "Name":"BungeeCord",
+      "Adress":"mc.franga2000.com",
+      "Port":25565,
+      "Description":"The server you connect to"
     },
     {
-      "Name": "Hub",
-      "Adress": "127.0.0.1",
-      "Port": 25570,
-      "Description": "The server used for passing between servers"
+      "Name":"Hub",
+      "Adress":"192.168.1.118",
+      "Port":25570,
+      "Description":"The server used for passing between servers",
+      "Offline_reason":"mwahahaa"
     },
     {
-      "Name": "Server1",
-      "Adress": "127.0.0.1",
-      "Port": 25571,
-      "Description": "Survival server"
+      "Name":"Server1",
+      "Adress":"192.168.1.118",
+      "Port":25571,
+      "Description":"Survival server"
     },
     {
-      "Name": "Server2",
-      "Adress": "127.0.0.1",
-      "Port": 25572,
-      "Description": "Creative server"
+      "Name":"Server2",
+      "Adress":"192.168.1.118",
+      "Port":25572,
+      "Description":"Creative server"
     },
     {
-      "Name": "Server3",
-      "Adress": "127.0.0.1",
-      "Port": 25573,
-      "Description": "Minigames server"
+      "Name":"Server3",
+      "Adress":"192.168.1.118",
+      "Port":25573,
+      "Description":"Minigames server"
     },
     {
-      "Name": "Server4",
-      "Adress": "127.0.0.1",
-      "Port": 25574,
-      "Description": "Fake server just for this demo (always offline)",
-      "Offline_reason": "Server down for maintnance"
+      "Name":"Server4",
+      "Adress":"192.168.1.118",
+      "Port":25574,
+      "Description":"Fake server just for this demo (always offline)",
+      "Offline_reason":"Server down for maintnance"
     }
   ]
 }

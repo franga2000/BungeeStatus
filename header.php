@@ -1,10 +1,13 @@
 <?php
+//error_reporting(E_ALL);
 include $back . 'config.php';
 ?>
 <head>
 <title>BungeeCord Network Status</title>
 <link rel="icon" type="image/x-icon" href="<?php echo $back; ?>favicon.ico" />
 <meta charset="utf-8">
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 </head>
 
 <style>
@@ -13,8 +16,7 @@ body {
 }
 
 table {
-    width:100%;
-    height:50%;
+    margin:10px;
     table-layout:fixed;
     overflow-x:auto;
 }
@@ -35,15 +37,22 @@ th, td {
 
 a:link {
     text-decoration:none;
+    color:blue;
 }
 
 a:visited {
-    text-decoration:none;}
-a:hover {text-decoration:none;
+    text-decoration:none;
+    color:blue;
+}
+
+a:hover {
+    text-decoration:none;
+    color:black;
 }
 
 a:active {
     text-decoration:none;
+    color:blue;
 }
 
 </style>

@@ -30,7 +30,10 @@ if (!isset($config['servers'][$server])) {
 
 $config['servers'][$server]['Offline_reason'] = $reason;
 
+unset($config['password']);
+unset($config['columns']);
+unset($config['player-columns']);
+        
 file_put_contents($back . 'servers.json', indent(json_encode($config)));
 //echo '<pre>' . indent(json_encode($config)) . '</pre>';
-
 ?>

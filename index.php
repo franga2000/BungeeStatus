@@ -2,7 +2,7 @@
 $back = './';
 include $back . 'header.php';
 ?>
-<body>
+<body onload="animate();">
 <h1>Network status</h1>
 
 <?php
@@ -38,20 +38,21 @@ foreach ($config['servers'] as $key => $server) {
 }
 echo '</tr></table>';
 ?>
-<script>$("tr").fadeOut(0);</script>
 <script>
-var i = 0;                     //  set your counter to 1
-
-function myLoop () {           //  create a loop function
-   setTimeout(function () {    //  call a 3s setTimeout when the loop is called
-       $("#td_"+i).fadeIn(500);        //  your code here
-      i++;                     //  increment the counter
-      if (i < 10) {            //  if the counter < 10, call the loop function
-         myLoop();             //  ..  again which will trigger another 
-      }                        //  ..  setTimeout()
-   }, 300)
+function animate() {
+	$("tr").fadeOut(0);
+	
+	var i = 0;
+	function myLoop () {
+	   setTimeout(function () {
+	       $("#td_"+i).fadeIn(500);
+	     i++;
+	     if (i < 10) {
+	         myLoop();
+	      }
+	   }, 100)
+	}
+	myLoop();
 }
-
-myLoop();                      //  start the loop
 </script>
 </body>

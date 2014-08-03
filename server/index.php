@@ -13,7 +13,7 @@ if (!isset($_GET['id'])) {
 }
 $server = $config['servers'][(int) $_GET['id']];
 $players = Array();
-$Query = new MinecraftQuery( );
+$Query = new MinecraftQuery();
     try {
 			$Query->Connect( $server['Adress'], $server['Port'] );
 			$info = $Query->GetInfo();
@@ -24,23 +24,54 @@ $Query = new MinecraftQuery( );
 		}
 ?>
 <body align=center>
-<table style="min-width:500px;" align=center><tr><td>
-<?php
-echo '<h2><a href="' . $back . 'server?id=' . $_GET['id'] . '">' . $server['Name'] . '</a></h2>' . (!$online && isset($server['Offline_reason']) ? '<p style="color:red;">' . $server['Offline_reason'] . '</p>' : (isset($server['Description']) ? '<p>' . $server['Description'] . '</p>' : ' ')) .
-'<h3 style="color:' . ( $online ? "green" : "red") . '">' . ( $online ? "ONLINE" : "OFFLINE") . '</h3>' . 
-($online ? $info['Players'] : "0") . '/' . ($online ? $info['MaxPlayers'] : "0") . '</td>';
-?>
-</td></tr>
-<?php
-if (count($players) >= 1) {
-    echo '<tr><td><ul style="list-style-type: none;">';
-    
-    foreach($players as $player){
-    	echo '<li><img src="http://cravatar.eu/helmavatar/' . $player . '/30.png"> ' . $player . '</li>';
+<div class="server">
+    <?php
+    echo '
+    <h1>' . $server['Name'] . '</h1>' . 
+    (!$online && isset($server['Offline_reason']) ? '<div class="alert alert-danger">' . $server['Offline_reason'] . '</div>' : (isset($server['Description']) ? '<p>' . $server['Description'] . '</p>' : ' ')) .
+    '<div class="status alert alert-' . ( $online ? "success" : "danger") . '">' . ( $online ? "ONLINE" : "OFFLINE") . '</div><br/>
+    <h3>' . ($online ? $info['Players'] : "0") . '/' . ($online ? $info['MaxPlayers'] : "0") . ' Players</h3>';
+    ?>
+    </td></tr>
+    <?php
+    if (count($players) >= 1) {
+        echo '<tr><td><div style="display: inline-block;">
+            <ul class="players">';
+        
+        foreach($players as $key => $player) {
+            if ($key == round((int) count($players)/$config['player-columns'])) {
+        	    echo '</ul><ul class="players">';
+        	}
+        	
+        	echo '<li class="player"><img src="http://cravatar.eu/helmavatar/' . $player . '/50.png"> ' . $player . '</li>';
+        }
+        
+        echo '</ul></div></td></tr>';
     }
-    
-    echo '</ul></td></tr>';
-}
-?>
-</table>
+    ?>
+</server>
 </body>
+
+<style>
+.players {
+    list-style-type: none;
+    text-align: left;
+    display: inline-block;
+}
+
+.player {
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+.player img {
+    border-radius: 5px;
+}
+
+.status {
+    font-size: 2em;
+    display: inline-block;
+    padding: 5px 10px;
+    color: red;
+}
+</style>

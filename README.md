@@ -46,3 +46,7 @@ servers.json:
 * Most of everything: franga2000 (http://franga2000.com)
 * Minecraft Query Script: xPaw (https://github.com/xPaw/PHP-Minecraft-Query)
 * Json Fancify Script: Dave Perrett (http://www.daveperrett.com/articles/2008/03/11/format-json-with-php/)
+
+##License:
+
+GNU GPL v2 ([License included in repo](LICENSE))

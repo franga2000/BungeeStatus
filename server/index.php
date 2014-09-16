@@ -72,6 +72,5 @@ $Query = new MinecraftQuery();
     font-size: 2em;
     display: inline-block;
     padding: 5px 10px;
-    color: red;
 }
 </style>

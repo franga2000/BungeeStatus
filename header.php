@@ -7,16 +7,28 @@ include $back . 'config.php';
 <link rel="icon" type="image/x-icon" href="<?php echo $back; ?>favicon.ico" />
 <meta charset="utf-8">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
 
-<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.0.2/css/bootstrap3/bootstrap-switch.min.css">
 
-<!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.0.2/js/bootstrap-switch.min.js"></script>
 </head>
 
 <style>
+.offline {
+    color: red;
+}
+
+.online {
+    color: green;
+}
+
+.bootstrap-switch {
+    height: 30px;
+    margin: 10px;
+}
+
 body:not(.nope) {
     font-family:Verdana, Geneva, sans-serif;
 }

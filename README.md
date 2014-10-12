@@ -15,8 +15,8 @@ BungeeStatus is a PHP powered website that allows server owners with PHP-capable
 config.php:
 ```php
     'password' =>       'CHANGE-THIS', //The password used to access the admin page
-    'columns' =>        2, //The number of columns of serverson the main page
-    'player_columns'=>  2, //The number of columns of playerson the server page
+    'columns' =>        2, //The number of columns of servers on the main page
+    'player_columns'=>  2, //The number of columns of players on the server page
     'nojava' =>         false, //Switch to the old loading system
     'toolbar' =>        "top" //Location of the toolbar
 ```

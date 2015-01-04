@@ -35,6 +35,7 @@ foreach ($config['servers'] as $key => $server) {
     </td>';
         }
         
+	else
 		echo "\n" . '<td class="server server-' . $key . '">
     <h2><a href="' . $back . 'server?id=' . $key . '">' . $server['Name'] . '</a></h2>
     <p class="description"><img src="spinner.gif"></img>Loading...</p class="description">

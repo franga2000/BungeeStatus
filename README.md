@@ -9,7 +9,7 @@ BungeeStatus is a PHP powered website that allows server owners to show their pl
 * Change the password in [config.php](config.php)
 * Add your servers on the admin page (***/admin***)
 
-###CONFIGURATION:
+###Configuration:
 
  * Servers can be configured on the admin page (***/admin***)
  * Password can be set in [config.php](config.php)

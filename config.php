@@ -1,16 +1,12 @@
 <?php
-//DON NOT EDIT ANYTHING ABOVE THIS LINE!
-if (!isset($back)) {
-    $back = './';
-}
+if (!isset($back))  $back = './';
+$version = "1.6"; //DO NOT TOUCH!
+$config = array_merge(json_decode(file_get_contents($back . 'config.json'), true), Array(
+    'servers' => json_decode(file_get_contents($back . 'servers.json'), true), 
+//DO NOT EDIT ANYTHING ABOVE THIS LINE!
+
+    'password' => 'CHANGE-THIS', //The password used to access the admin page
 
 //DO NOT EDIT ANYTHING BELOW THIS LINE!
-$config = array_merge(json_decode(file_get_contents($back . 'servers.json'), true), Array(
-    'password' =>       'CHANGE-THIS',
-    'columns' =>        2,  //The number of columns of serverson the main page
-    'player_columns'=>  2,  //The number of columns of playerson the server page
-    'nojava' =>         false,  //The number of columns of playerson the server page
-    'toolbar' =>        "top" //Location of the toolbar
-    )
-);
+));
 ?>

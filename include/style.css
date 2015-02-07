@@ -1,0 +1,55 @@
+.offline {
+    color: #e74c3c;
+}
+
+.online {
+    color: #2ecc71;
+}
+
+.bootstrap-switch {
+    height: 30px;
+    margin: 10px;
+}
+
+body:not(.nope) {
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+table:not(.nope) {
+    margin: 10px;
+    table-layout: fixed;
+}
+
+th:not(.nope), td:not(.nope) {
+    vertical-align: top;
+    text-align: center;
+    padding: 15px;
+/*	border-radius: 10px;
+	box-shadow: 0 0 5px #DDD inset; */
+}
+
+select:not(.nope) {
+	border-radius: 4px;
+	border: 1px solid #dcdcdc;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 7px 7px;
+}
+
+a:link:not(.nope) {
+    text-decoration: none;
+}
+
+h1 {
+    margin-left: 10px;
+}
+
+.auto-refresh {
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+#servers {
+    margin: 0;
+    width: 100%;
+}

@@ -1,28 +1,31 @@
 <?php
-$back = '../';
-include $back . 'config.php';
-require $back . 'MinecraftQuery.class.php';
+header("Content-Type: application/json");
 
-header('Content-Type: application/json');
+$back = "../";
 
+require $back . "config.php";
+require $back . "include/MinecraftQuery.php";
+
+use xPaw\MinecraftQuery;
+use xPaw\MinecraftQueryException;
+
+$server = $config["servers"][$_GET["server"]];
+if ($server == null) die("Invalid server");
 $Query = new MinecraftQuery();
 try {
-	$Query->Connect( $config['servers'][$_GET['server']]['Adress'], $config['servers'][$_GET['server']]['Port']);
-    $response = $Query->GetInfo();
-    $response = array_merge($response, Array("Online" => true));
-} catch( MinecraftQueryException $e ) {
-    $response = Array(
+	$Query->Connect($server["Adress"], $server["Port"]);
+    $info = $Query->GetInfo();
+    $info = array_merge($info, Array("Online" => true));
+    $info["HostName"] = iconv("Windows-1250", "UTF-8", $info["HostName"]);
+} catch (MinecraftQueryException $e) {
+    $info = Array(
         "Online" => false,
     );
 }
-    
-$response = array_merge($response, $config['servers'][$_GET['server']]);
-
-array_walk($response, 
-    function (&$entry) {
-        $entry = iconv('Windows-1250', 'UTF-8', $entry);
-    }
-);
-
-echo json_encode($response, JSON_PRETTY_PRINT);
+$return = array_merge($info, Array(
+	"Name" => $server["Name"], 
+	"Description" => $server["Description"], 
+	"Offline_reason" => $server["Offline_reason"]
+));
+echo json_encode($return, JSON_PRETTY_PRINT);
 ?>

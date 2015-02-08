@@ -56,7 +56,7 @@ $_SESSION['token'] = $token;
                 
                 <?php foreach ($config['servers'] as $key => $server): ?>
                 <div class="tab-pane" id="server-<?php echo $key ?>">
-                    <form role="form" method="post" action="manage.php" class="col-md-5">
+                    <form role="form" method="post" action="manage_servers.php" class="col-md-5">
                         <input type="hidden" name="id" value="<?php echo $key ?>"/> 
                         <input type="hidden" name="token" value="<?php echo $token ?>"/> 
                         

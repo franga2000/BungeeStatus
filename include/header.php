@@ -1,8 +1,8 @@
 <?php
 include $back . 'config.php';
 ?>
-<!-- BUNGEESTATUS VERSION <?php echo $version ?> -->
 <head>
+    <!-- BUNGEESTATUS VERSION <?php echo $version ?> -->
     <title>BungeeCord Network Status</title>
     <link rel="icon" type="image/x-icon" href="<?php echo $back ?>include/favicon.ico" />
     <meta charset="UTF-8">

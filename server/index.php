@@ -14,13 +14,13 @@ if (!isset($_GET['id'])) {
     die();
 }
 $server = $config['servers'][(int) $_GET['id']];
-$players = Array();
 
 $Query = new MinecraftQuery();
 try {
 	$Query->Connect($server['Adress'], $server['Port']);
     $info = $Query->GetInfo();
     $players = $Query->GetPlayers();
+    if (!$players) $players = Array();
     $online = true;
 } catch (MinecraftQueryException $e) {
     $online = false;
@@ -42,10 +42,8 @@ try {
 		<ul class="players">';
 		
 		foreach($players as $key => $player) {
-			if ($key == ceil((int) count($players)/$config['player_columns'])) {
-			echo '</ul><ul class="players">';
-		}
-			echo '<li class="player"><img src="http://cravatar.eu/helmavatar/' . $player . '/50.png"> ' . $player . '</li>';
+			if ($key == ceil((int) count($players)/$config['player_columns'])) echo '</ul><ul class="players">';
+		echo '<li class="player"><img src="http://cravatar.eu/helmavatar/' . $player . '/50.png"> ' . $player . '</li>';
 		}
 		
 		echo '</ul></div></td></tr>';

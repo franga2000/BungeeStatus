@@ -41,7 +41,7 @@ try {
 		<div id="players">
 		<?php foreach ($players as $player): ?>
 			<div class="col-md-2 player">
-				<img src="<?php echo "https://crafatar.com/" . ($config['3d_avatars'] ? "renders/head" : "avatars") . "/" . $player . "?helm=true&scale=5" ?>" class="img-rounded">
+				<img src="<?php echo "https://cravatar.eu/" . ($config['3d_avatars'] ? "helmhead" : "helmavatar") . "/" . $player . "/96" ?>" class="img-rounded">
 				<p><?php echo $player ?></p>
 			</div>
 		<?php endforeach ?>

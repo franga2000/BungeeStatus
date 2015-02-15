@@ -11,6 +11,13 @@ session_start();
 $token = md5(uniqid(mt_rand(), true));
 $_SESSION['token'] = $token;
 ?>
+<div id="notifications">
+	<?php if (!is_writable("../servers.json")): ?>
+		<div class="alert alert-danger" role="alert">
+			<b>Error:</b> <code>servers.json</code> isn't writable
+		</div>
+	<?php endif ?>
+</div>
 <body>
     <div class="row">
         <a href="?logout"><button type="submit" name="logout" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-log-out"></span> Log out</button></a>
@@ -163,6 +170,15 @@ $_SESSION['token'] = $token;
     border-color: #DDD transparent #DDD #DDD;
     border-right-color: #FFF;
 }
+
+.alert {
+	margin: 0;
+	border-radius: 0;
+}
+
+code {
+	color: inherit;
+}
 </style>
 <script>
 var ignore = false;
@@ -178,5 +194,13 @@ $('.confirm').on('click', function(e) {
         ignore = true;
         $(target).click();
     });
+});
+
+$.getJSON("https://api.github.com/repos/franga2000/BungeeStatus/tags", function(data) {
+	if (data[0].name != VERSION) {
+		$('<div class="alert alert-info" role="alert"> \
+			<b>Info:</b> Version <code>' + data[0].name + '</code> has been released (you are still on <code>' + VERSION + '</code>). You can get it <a href="https://github.com/franga2000/BungeeStatus/releases/tag/' + data[0].name + '"><b>here.</b></a> \
+		</div>').hide().appendTo("#notifications").slideDown();
+	}
 });
 </script>

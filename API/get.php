@@ -15,14 +15,17 @@ $Query = new MinecraftQuery();
 try {
 	$Query->Connect($server["Adress"], $server["Port"]);
     $info = $Query->GetInfo();
-    $info = array_merge($info, Array("Online" => true));
-    $info["HostName"] = iconv("Windows-1250", "UTF-8", $info["HostName"]);
+    $data = Array(
+		"Online" => true,
+		"Players" => $info["Players"],
+		"MaxPlayers" => $info["MaxPlayers"]
+    );
 } catch (MinecraftQueryException $e) {
-    $info = Array(
+    $data = Array(
         "Online" => false,
     );
 }
-$return = array_merge($info, Array(
+$return = array_merge($data, Array(
 	"Name" => $server["Name"], 
 	"Description" => $server["Description"], 
 	"Offline_reason" => $server["Offline_reason"]

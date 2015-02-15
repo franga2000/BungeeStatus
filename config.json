@@ -1,5 +1,5 @@
 {
     "columns": 2,
-    "player_columns": 2, 
-    "toolbar": "top" 
+    "toolbar": "top", 
+    "3d_avatars": true
 }

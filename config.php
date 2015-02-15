@@ -1,6 +1,5 @@
 <?php
 if (!isset($back))  $back = './';
-$version = "1.6"; //DO NOT TOUCH!
 $config = array_merge(json_decode(file_get_contents($back . 'config.json'), true), Array(
     'servers' => json_decode(file_get_contents($back . 'servers.json'), true), 
 //DO NOT EDIT ANYTHING ABOVE THIS LINE!

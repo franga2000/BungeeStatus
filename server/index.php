@@ -16,6 +16,7 @@ if (!isset($_GET['id'])) {
 $server = $config['servers'][(int) $_GET['id']];
 
 $Query = new MinecraftQuery();
+$players = Array();
 try {
 	$Query->Connect($server['Adress'], $server['Port']);
     $info = $Query->GetInfo();
@@ -36,38 +37,28 @@ try {
     <div class="status alert alert-<?php echo $online ? "success" : "danger" ?>"><?php echo $online ? "ONLINE" : "OFFLINE" ?></div><br/>
     <h3><?php echo $online ? $info['Players'] : "-" ?>/<?php echo $online ? $info['MaxPlayers'] : "-" ?> Players</h3>
     </td></tr>
-    <?php
-    if (count($players) >= 1) {
-        echo '<tr><td><div style="display: inline-block;">
-		<ul class="players">';
-		
-		foreach($players as $key => $player) {
-			if ($key == ceil((int) count($players)/$config['player_columns'])) echo '</ul><ul class="players">';
-		echo '<li class="player"><img src="http://cravatar.eu/helmavatar/' . $player . '/50.png"> ' . $player . '</li>';
-		}
-		
-		echo '</ul></div></td></tr>';
-    }
-    ?>
+    <?php if (count($players) > 0): ?>
+		<div id="players">
+		<?php foreach ($players as $player): ?>
+			<div class="col-md-2 player">
+				<img src="<?php echo "https://crafatar.com/" . ($config['3d_avatars'] ? "renders/head" : "avatars") . "/" . $player . "?helm=true&scale=5" ?>" class="img-rounded">
+				<p><?php echo $player ?></p>
+			</div>
+		<?php endforeach ?>
+		</div>
+    <?php endif ?>
 </div>
 </body>
 
 <style>
-.players {
-    list-style-type: none;
-    text-align: left;
-    display: inline-block;
+#players {
+    text-align: center;
 }
-
 .player {
-    margin-bottom: 5px;
-    font-size: 20px;
+    display: inline-block;
+    float: none;
+    margin-right: -4px;
 }
-
-.player img {
-    border-radius: 5px;
-}
-
 .status {
     font-size: 2em;
     display: inline-block;

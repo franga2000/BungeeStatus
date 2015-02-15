@@ -1,5 +1,6 @@
 <?php
 include $back . 'config.php';
+$version = "1.7";
 ?>
 <head>
     <!-- BUNGEESTATUS VERSION <?php echo $version ?> -->
@@ -19,3 +20,6 @@ include $back . 'config.php';
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/modal.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
 </head>
+<script>
+var VERSION = <?php echo $version ?>;
+</script>

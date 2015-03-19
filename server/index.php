@@ -49,12 +49,6 @@ try {
 		<?php foreach ($players as $player): ?>
 			<div class="col-md-2 player">
 				<img src="<?php echo "https://cravatar.eu/" . $avatar_prefix . "/" . $player . "/96" ?>" class="img-rounded">
-<<<<<<< HEAD
-=======
-				<img src="<?php echo "https://cravatar.eu/" . ($config['3d_avatars'] ? "helmhead" : "helmavatar") . "/" . $player . "/96" ?>" class="img-rounded">
->>>>>>> cb5d8b6... Update index.php
-=======
->>>>>>> 805ff4b... Git being terrible
 				<p><?php echo $player ?></p>
 			</div>
 		<?php endforeach ?>

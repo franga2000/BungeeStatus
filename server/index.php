@@ -37,11 +37,18 @@ try {
     <div class="status alert alert-<?php echo $online ? "success" : "danger" ?>"><?php echo $online ? "ONLINE" : "OFFLINE" ?></div><br/>
     <h3><?php echo $online ? $info['Players'] : "-" ?>/<?php echo $online ? $info['MaxPlayers'] : "-" ?> Players</h3>
     </td></tr>
-    <?php if (count($players) > 0): ?>
+    <?php if (count($players) > 0): 
+    switch($config["avatar_type"]) {
+        case "3d": $avatar_prefix = "head"; break;
+        case "3d_helm": $avatar_prefix = "helmhead"; break;
+        case "2d": $avatar_prefix = "avatar"; break;
+        case "2d_helm": $avatar_prefix = "helmavatar"; break;
+    }
+    ?>
 		<div id="players">
 		<?php foreach ($players as $player): ?>
 			<div class="col-md-2 player">
-				<img src="<?php echo "https://crafatar.com/" . ($config['3d_avatars'] ? "renders/head" : "avatars") . "/" . $player . "?helm=true&scale=5" ?>" class="img-rounded">
+				<img src="<?php echo "https://cravatar.eu/" . $avatar_prefix . "/" . $player . "/96" ?>" class="img-rounded">
 				<p><?php echo $player ?></p>
 			</div>
 		<?php endforeach ?>

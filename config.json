@@ -1,5 +1,7 @@
 {
     "columns": 2,
+    "title": "Network status", 
     "toolbar": "top", 
-    "3d_avatars": true
+    "avatar_type": "3d_helm",
+    "session_fix": false
 }

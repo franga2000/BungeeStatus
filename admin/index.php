@@ -4,6 +4,7 @@ if (isset($_GET['refresh'])) {
 }
 
 $back = '../';
+$admin = true;
 include $back . 'include/header.php';
 include $back . 'include/password_protect.php';
 
@@ -17,11 +18,21 @@ $_SESSION['token'] = $token;
 			<b>Error:</b> <code>servers.json</code> isn't writable
 		</div>
 	<?php endif ?>
+	<?php if (!is_writable("../config.json")): ?>
+		<div class="alert alert-danger" role="alert">
+			<b>Error:</b> <code>config.json</code> isn't writable
+		</div>
+	<?php endif ?>
+	<?php if ($config["password"] == "CHANGE-THIS"): ?>
+		<div class="alert alert-warning" role="alert">
+			<b>Warning:</b> Your password is set to the default! Change it ASAP
+		</div>
+	<?php endif ?>
 </div>
 <body>
     <div class="row">
-        <a href="?logout"><button type="submit" name="logout" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-log-out"></span> Log out</button></a>
-        <div class="col-md-10">
+        <a href="?logout" class="logout"><button name="logout" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-log-out"></span> Log out</button></a>
+        <div class="col-md-8">
         <div class="tabbable tabs-left">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#new-server" data-toggle="tab"><b><span class="glyphicon glyphicon-plus-sign"></span> New server</b></a></li>
@@ -32,9 +43,9 @@ $_SESSION['token'] = $token;
                 ?>
             </ul>
             
-            <div class="tab-content">
+            <div class="tab-content col-md-8">
                 <div class="tab-pane active" id="new-server">
-                    <form role="form" method="post" action="manage_servers.php" class="col-md-5">
+                    <form role="form" method="post" action="manage_servers.php">
                         <legend>Add server</legend>
                         <div class="form-group">
                             <label for="name">Server name:</label>
@@ -55,7 +66,7 @@ $_SESSION['token'] = $token;
                             <input class="form-control" name="description" autocomplete="off"/>
                         </div>
                         
-                        <input type="hidden" name="token" value="<?php echo $token; ?>" />
+                        <input type="hidden" name="token" value="<?php echo $token ?>" />
                         
                         <button type="submit" name="action" value="add" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Add Server</button>
                     </form>
@@ -63,7 +74,7 @@ $_SESSION['token'] = $token;
                 
                 <?php foreach ($config['servers'] as $key => $server): ?>
                 <div class="tab-pane" id="server-<?php echo $key ?>">
-                    <form role="form" method="post" action="manage_servers.php" class="col-md-5">
+                    <form role="form" method="post" action="manage_servers.php">
                         <input type="hidden" name="id" value="<?php echo $key ?>"/> 
                         <input type="hidden" name="token" value="<?php echo $token ?>"/> 
                         
@@ -98,13 +109,44 @@ $_SESSION['token'] = $token;
                         <button type="submit" class="btn btn-danger pull-right confirm" name="action" value="remove"><span class="glyphicon glyphicon-remove-circle"></span> Remove server</button> 
                     </form>
                 </div>
-                <?php endforeach; ?>
+                <?php endforeach ?>
             </div>
         </div>
     </div>
     
-    <div class="col-md-5">
-        
+    <div class="col-md-4">
+        <form role="form" method="post" action="manage_config.php">
+            <legend>Configuration</legend>
+            <div class="form-group">
+                <label for="title">Site title:</label>
+                <input type="text" class="form-control" name="title" placeholder="<?php echo $config["title"] ?>" autocomplete="off" value="<?php echo $config["title"] ?>" required/>
+            </div>
+            <div class="form-group">
+                <label for="cloumns">Columns:</label>
+                <input type="number" class="form-control" name="columns" placeholder="<?php echo $config["columns"] ?>" autocomplete="off" value="<?php echo $config["columns"] ?>" required/>
+            </div>
+            <div class="form-group">
+                <label for="avatar_type">Avatar type:</label>
+                <select class="form-control" name="avatar_type" required>
+					<option value="3d"<?php if ($config["avatar_type"] == "3d") echo " selected" ?>>3D</option>
+					<option value="3d_helm"<?php if ($config["avatar_type"] == "3d_helm") echo " selected" ?>>3D with helmet</option>
+					<option value="2d"<?php if ($config["avatar_type"] == "2d") echo " selected" ?>>2D</option>
+					<option value="2d_helm"<?php if ($config["avatar_type"] == "2d_helm") echo " selected" ?>>2D with helmet</option>
+				</select>
+            </div>
+            <div class="form-group">
+                <label for="toolbar">Toolbar location:</label>
+                <select class="form-control" name="toolbar" required>
+					<option value="none"<?php if ($config["toolbar"] == "none") echo " selected" ?>>None</option>
+					<option value="top"<?php if ($config["toolbar"] == "top") echo " selected" ?>>Top</option>
+					<option value="bottom"<?php if ($config["toolbar"] == "bottom") echo " selected" ?>>Bottom</option>
+				</select>
+            </div>
+            
+            <input type="hidden" name="token" value="<?php echo $token ?>" />
+            
+            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Save</button>
+        </form>
     </div>
     
     <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
@@ -128,56 +170,65 @@ $_SESSION['token'] = $token;
     padding: 10px;
 }
 
-.tabs-left > .nav-tabs {
-    border-bottom: 0;
+@media (min-width:992px) {
+	.tabs-left > .nav-tabs {
+	    border-bottom: 0;
+	}
+	
+	.pill-content > .pill-pane {
+	    display: none;
+	}
+	
+	.tab-content > .active,
+	.pill-content > .active {
+	    display: block;
+	}
+	
+	.tabs-left > .nav-tabs > li,
+	.tabs-right > .nav-tabs > li {
+	    float: none;
+	}
+	
+	.tabs-left > .nav-tabs {
+	    float: left;
+	    margin-right: 19px;
+	    border-right: 1px solid #DDD;
+	}
+	
+	.tabs-left > .nav-tabs > li > a {
+	    margin-right: -1px;
+	    -webkit-border-radius: 4px 0 0 4px;
+	    -moz-border-radius: 4px 0 0 4px;
+	    border-radius: 4px 0 0 4px;
+	}
+	
+	.tabs-left > .nav-tabs > li > a:hover,
+	.tabs-left > .nav-tabs > li > a:focus {
+	    border-color: #EEE #DDD #EEE #EEE;
+	}
+	
+	.tabs-left > .nav-tabs .active > a,
+	.tabs-left > .nav-tabs .active > a:hover,
+	.tabs-left > .nav-tabs .active > a:focus {
+	    border-color: #DDD transparent #DDD #DDD;
+	    border-right-color: #FFF;
+	}
 }
-
-.pill-content > .pill-pane {
-    display: none;
-}
-
-.tab-content > .active,
-.pill-content > .active {
-    display: block;
-}
-
-.tabs-left > .nav-tabs > li,
-.tabs-right > .nav-tabs > li {
-    float: none;
-}
-
-.tabs-left > .nav-tabs {
-    float: left;
-    margin-right: 19px;
-    border-right: 1px solid #DDD;
-}
-
-.tabs-left > .nav-tabs > li > a {
-    margin-right: -1px;
-    -webkit-border-radius: 4px 0 0 4px;
-    -moz-border-radius: 4px 0 0 4px;
-    border-radius: 4px 0 0 4px;
-}
-
-.tabs-left > .nav-tabs > li > a:hover,
-.tabs-left > .nav-tabs > li > a:focus {
-    border-color: #EEE #DDD #EEE #EEE;
-}
-
-.tabs-left > .nav-tabs .active > a,
-.tabs-left > .nav-tabs .active > a:hover,
-.tabs-left > .nav-tabs .active > a:focus {
-    border-color: #DDD transparent #DDD #DDD;
-    border-right-color: #FFF;
-}
-
 .alert {
 	margin: 0;
 	border-radius: 0;
+	padding-right: 120px;
 }
 
 code {
 	color: inherit;
+}
+
+.logout {
+	position: absolute;
+	right: 10px;
+	top: 7px;
+	z-index: 10;
 }
 </style>
 <script>

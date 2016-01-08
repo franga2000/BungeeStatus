@@ -4,6 +4,9 @@ header("Content-Type: application/json");
 $back = "../";
 
 require $back . "config.php";
+/*
+ *		Same as query.php for now, will be changed to the MC 1.8 ping protocol someday
+ */
 require $back . "include/MinecraftQuery.php";
 
 use xPaw\MinecraftQuery;
@@ -13,7 +16,7 @@ $server = $config["servers"][$_GET["server"]];
 if ($server == null) die("Invalid server");
 $Query = new MinecraftQuery();
 try {
-	$Query->Connect($server["Adress"], $server["Port"]);
+	$Query->Connect($server["Address"], $server["Port"]);
     $info = $Query->GetInfo();
     $data = Array(
 		"Online" => true,
@@ -25,10 +28,11 @@ try {
         "Online" => false,
     );
 }
+
 $return = array_merge($data, Array(
 	"Name" => $server["Name"], 
 	"Description" => $server["Description"], 
 	"Offline_reason" => $server["Offline_reason"]
 ));
-echo json_encode($return, JSON_PRETTY_PRINT);
+echo json_encode($return, 128);
 ?>

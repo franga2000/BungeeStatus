@@ -1,72 +1,51 @@
-var refreshTimer;
+var refreshtimer;
 
 window.onload = function() {
-    if (getCookie("BungeeStatus") === "") setCookie("BungeeStatus", "true,60000");
-    
-	$("tr").fadeOut(0);
-	$(".auto-refresh").html('<label for="refresh">Auto refresh:</label><input type="checkbox" name="refresh" class="switch" /><label for="timer">Refresh timer: </label><select name="timer" style="margin: 10px;"><option value="1000">1 sec.</option><option value="10000">10 sec.</option><option value="30000">30 sec.</option><option value="60000">1 min.</option><option value="600000">10 min.</option></select>');
 	$(".switch").bootstrapSwitch();
+	loadAll();
 	
-	refresh();
-	fadeIn();
+	if (getCookie("BungeeStatus") == "") setCookie("BungeeStatus", "true,60");
 	
-	startAutoRefresh();
+	$("#toolbar input[name=refresh]").bootstrapSwitch("state", Boolean(getCookie("BungeeStatus").split(",")[0]));
+	$("#toolbar select[name=interval]").val(getCookie("BungeeStatus").split(",")[1]);
 	
-	if (getCookie("BungeeStatus").split(",")[0] == "true") {
-		$(".auto-refresh input").bootstrapSwitch("state", true);
-	}
+	if (Boolean(getCookie("BungeeStatus").split(",")[0])) startAutoRefresh();
 	
-	$(".auto-refresh select").val(getCookie("BungeeStatus").split(",")[1]);
-	
-	$(".auto-refresh input").on('switchChange.bootstrapSwitch', function(event, state) {
-		cookieData = getCookie("BungeeStatus").split(",");
-		cookieData[0] = state;
-		
-		setCookie("BungeeStatus", cookieData.join(","));
+	$("#toolbar input[name=refresh]").on('switchChange.bootstrapSwitch', function(event, state) {
+		cookie = getCookie("BungeeStatus").split(",");
+		cookie[0] = state;
+		setCookie("BungeeStatus", cookie.join(","));
         
         if (state) {
             startAutoRefresh();
+            loadAll();
         } else {
-            stopAutoRefresh();
+        	stopAutoRefresh();
         }
 	});
 	
-	$(".auto-refresh select").on('change', function() {
-		cookieData = getCookie("BungeeStatus").split(",");
-		cookieData[1] = this.value;
-		
-		setCookie("BungeeStatus", cookieData.join(","));
+	$("#toolbar select[name=interval]").on('change', function() {
+		cookie = getCookie("BungeeStatus").split(",");
+		cookie[1] = this.value;
+		setCookie("BungeeStatus", cookie.join(","));
 		
 		stopAutoRefresh();
         startAutoRefresh();
 	});
 };
 
-function fadeIn() {
-	var i = 0;
-	function loop () {
-		setTimeout(function () {
-		$("#row_"+i).fadeIn(500);
-			i++;
-			if (i < 10) loop();
-	}, 100);
-	}
-	loop();
+function startAutoRefresh() {
+    refreshTimer = setInterval(loadAll, getCookie("BungeeStatus").split(",")[1] * 1000);
 }
 
-function refresh() {
-    var i = 0;
-    $(".server").each(function() {
-        //setTimeout(function() {
-        	loadServer(i);
-        //}, i*10);
-        i++;
-    });
+function stopAutoRefresh() {
+    window.clearTimeout(refreshTimer);
 }
+
 
 function loadServer(id) {
-    $.getJSON(
-        "API/get.php?server=" + id, 
+	$.getJSON(
+        "ajax/get.php?server=" + id, 
         function(data) {
             if (data.Online) {
                 $(".server-" + id + " .players").html(data.Players + "/" + data.MaxPlayers);
@@ -89,13 +68,14 @@ function loadServer(id) {
     );
 }
 
-function startAutoRefresh() {
-    refreshTimer = setInterval(function(){ refresh() }, getCookie("BungeeStatus").split(",")[1]);
+function loadAll() {
+	var i = 0;
+	$("#servers .server").each(function() {
+		loadServer(i);
+		i++;
+	});
 }
 
-function stopAutoRefresh() {
-    window.clearTimeout(refreshTimer);
-}
 
 function getCookie(cname) {
     var name = cname + "=";

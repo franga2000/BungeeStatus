@@ -53,8 +53,8 @@ $_SESSION['token'] = $token;
                         </div>
                         
                         <div class="form-group">
-                            <label for="adress">Adress:</label>
-                            <input type="text" class="form-control" name="adress" placeholder="mc.example.com" autocomplete="off" required/>
+                            <label for="address">Address:</label>
+                            <input type="text" class="form-control" name="address" placeholder="mc.example.com" autocomplete="off" required/>
                         </div>
                         <div class="form-group">
                             <label for="port">Port:</label>
@@ -86,8 +86,8 @@ $_SESSION['token'] = $token;
                         </div>
                         
                         <div class="form-group">
-                            <label for="adress">Adress:</label>
-                            <input type="text" class="form-control" name="adress" placeholder="mc.example.com" value="<?php echo $server['Adress'] ?>" autocomplete="off" autocomplete="off" required/>
+                            <label for="address">Address:</label>
+                            <input type="text" class="form-control" name="address" placeholder="mc.example.com" value="<?php echo $server['Address'] ?>" autocomplete="off" autocomplete="off" required/>
                         </div>
                         <div class="form-group">
                             <label for="port">Port:</label>
@@ -135,11 +135,11 @@ $_SESSION['token'] = $token;
 				</select>
             </div>
             <div class="form-group">
-                <label for="toolbar">Toolbar location:</label>
-                <select class="form-control" name="toolbar" required>
-					<option value="none"<?php if ($config["toolbar"] == "none") echo " selected" ?>>None</option>
-					<option value="top"<?php if ($config["toolbar"] == "top") echo " selected" ?>>Top</option>
-					<option value="bottom"<?php if ($config["toolbar"] == "bottom") echo " selected" ?>>Bottom</option>
+                <label for="backend">Backend:</label>
+                <select class="form-control" name="backend" required>
+					<option value="query"<?php if ($config["backend"] == "query") echo " selected" ?>>Query (requires "query-enabled")</option>
+					<option value="ping"<?php if ($config["backend"] == "ping") echo " selected" ?>>Ping (1.8+, no player list)</option>
+					<option value="relay"<?php if ($config["backend"] == "relay") echo " selected" ?>>Relay (see wiki)</option>
 				</select>
             </div>
             
@@ -255,3 +255,4 @@ $.getJSON("https://api.github.com/repos/franga2000/BungeeStatus/tags", function(
 	}
 });
 </script>
+</html>

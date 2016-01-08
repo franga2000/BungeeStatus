@@ -1,31 +1,32 @@
 <?php
-$back = './';
+$back = '';
 include $back . 'include/header.php';
 ?>
 <body>
-<?php if ($config['toolbar'] == "top") echo '<div class="pull-right auto-refresh"></div>'; ?>
-<h1 class="pull-left">Network status</h1>
+<header>
+	<h1>Network status</h1>
+	<div id="toolbar">
+		<label for="refresh">Auto refresh: </label>
+		<input type="checkbox" name="refresh" class="switch">
+		
+		<label for="interval">Interval: </label>
+		<select name="interval">
+			<option value="1">1 sec.</option>
+			<option value="10">10 sec.</option>
+			<option value="30">30 sec.</option>
+			<option value="60">1 min.</option>
+		</select>
+	</div>
+	<div style="clear: both;"></di>
+</header>
+<main id="servers">
 <?php 
-echo '<table id="servers"><tr id="row_0">';
-$col = 0;
-foreach ($config['servers'] as $key => $server) {
-    if ($col < $config['columns']) {
-		$col ++;
-    } else {
-		echo '</tr><tr id="row_' . $key . '">';
-		$col = 1;
-    }
-    
-    echo "\n" . '<td class="server server-' . $key . '">
-    <h2><a href="' . $back . 'server?id=' . $key . '">' . $server['Name'] . '</a></h2>
-    <p class="description"><img src="include/spinner.gif"></img> Loading...</p class="description">
-    <h3 class="status">Loading...</h3>
-    <p class="players">Loading...</p>
-    </td>';
-}
-echo '</tr></table>';
-
-if ($config['toolbar'] == "bottom") echo '<div class="pull-right auto-refresh"></div>'; 
+	$col = 0;
+	foreach ($config['servers'] as $key => $server) {
+	    include "include/server.php";
+	}
 ?>
+</main>
+<script src="include/index_script.js"></script>
 </body>
-<script src="include/script.js"></script>
+</html>

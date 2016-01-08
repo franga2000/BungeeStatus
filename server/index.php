@@ -18,7 +18,7 @@ $server = $config['servers'][(int) $_GET['id']];
 $Query = new MinecraftQuery();
 $players = Array();
 try {
-	$Query->Connect($server['Adress'], $server['Port']);
+	$Query->Connect($server['Address'], $server['Port']);
     $info = $Query->GetInfo();
     $players = $Query->GetPlayers();
     if (!$players) $players = Array();

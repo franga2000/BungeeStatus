@@ -17,7 +17,7 @@ switch($_POST["action"]) {
     case "add":
         array_push($config["servers"], Array(
             "Name" => $_POST["name"], 
-            "Adress" => $_POST["adress"], 
+            "Address" => $_POST["address"], 
             "Port" => $_POST["port"], 
             "Description" => $_POST["description"], 
             "Offline_reason" => ""
@@ -35,7 +35,7 @@ switch($_POST["action"]) {
     case "edit":
         $config["servers"][$_POST["id"]] = Array(
             "Name" => $_POST["name"], 
-            "Adress" => $_POST["adress"], 
+            "Address" => $_POST["address"], 
             "Port" => $_POST["port"], 
             "Description" => $_POST["description"], 
             "Offline_reason" => $_POST["offline-reason"]
